@@ -4,7 +4,6 @@ import { AppWrap, MotionWrap } from "../../wrapper";
 
 import "./Footer.scss";
 import images from "../../constants/images";
-import { client } from "../../client";
 
 const Footer = () => {
   const [formData, setFormData] = useState({
@@ -31,10 +30,7 @@ const Footer = () => {
       email: email,
       message: message,
     };
-    client.create(contact).then(() => {
-      setLoading(false);
-      setIsFormSubmitted(true);
-    });
+    // TODO: can be send to BE
   };
 
   return (
@@ -44,7 +40,7 @@ const Footer = () => {
         <div className="app__footer-card">
           <img src={images.email} alt="email" />
           <a href="mailto:hello@michael.com" className="p-text">
-            hello@michael.com
+            hello@hackathon.com
           </a>
         </div>
         <div className="app__footer-card">

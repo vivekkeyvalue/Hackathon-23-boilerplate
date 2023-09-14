@@ -2,22 +2,18 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 import "./About.scss";
-import { client, urlFor } from "../../client";
 import { AppWrap, MotionWrap } from "../../wrapper";
+import { dummyAbouts } from "../../constants";
+import images from "../../constants/images";
 
 const About = () => {
-  const [abouts, setAbouts] = useState([]);
-
-  useEffect(() => {
-    const query = '*[_type == "abouts"]';
-    client.fetch(query).then((data) => setAbouts(data));
-  }, []);
+  const [abouts, setAbouts] = useState(dummyAbouts);
 
   return (
     <>
       <h2 className="head-text">
         {" "}
-        I know that <span>Good Design</span>
+        I know that <span>Good Video</span>
         <br />
         Means <span>Good Business</span>
       </h2>
@@ -30,7 +26,7 @@ const About = () => {
             className="app__profile-item"
             key={about.title + index}
           >
-            <img src={urlFor(about.imgUrl)} alt={about.title} />
+            <img src={images.about02} alt={about.title} />
             <h2 className="bold-text" style={{ marginTop: 20 }}>
               {about.title}
             </h2>
