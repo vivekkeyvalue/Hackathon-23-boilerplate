@@ -23,8 +23,8 @@ export const MyVideo = ({ jsonData }) => {
         layerType: "product",
         top: 200,
         left: 10,
-        scaleX: 1.0975609756097562,
-        scaleY: 1.0975609756097562,
+        scaleX: 1,
+        scaleY: 1,
         hidden: false,
         url: train,
         orientation: "vertical",
@@ -44,8 +44,46 @@ export const MyVideo = ({ jsonData }) => {
         layerType: "product",
         top: 100,
         left: 500,
-        scaleX: 1.0975609756097562,
-        scaleY: 1.0975609756097562,
+        scaleX: 1,
+        scaleY: 1,
+        hidden: false,
+        url: pole,
+        orientation: "vertical",
+      },
+      {
+        version: "4.0",
+        name: "pole",
+        layerNumber: 1,
+        opacity: 1,
+        rotate: 10,
+        id: "mkSJlaLnONqDJCfzcocfg",
+        type: "image",
+        layerType: "product",
+        top: 100,
+        left: 300,
+        scaleX: 1,
+        scaleY: 1,
+        hidden: false,
+        url: pole,
+        orientation: "vertical",
+        translateY: {
+          start: 0,
+          end: 1000,
+        },
+      },
+      {
+        version: "4.0",
+        name: "pole",
+        layerNumber: 1,
+        opacity: 1,
+        rotate: 0,
+        id: "mkSJlaLnONqDJCfzcocfg",
+        type: "image",
+        layerType: "product",
+        top: 100,
+        left: 200,
+        scaleX: 2,
+        scaleY: 1,
         hidden: false,
         url: pole,
         orientation: "vertical",
@@ -78,6 +116,40 @@ export const MyVideo = ({ jsonData }) => {
     } else return "";
   };
 
+  const getRotate = (val) => {
+    if (val) {
+      console.log(val);
+      const rotateX = interpolate(frame, [0, 200], [0, 1080], {
+        extrapolateRight: "clamp",
+        extrapolateLeft: "clamp",
+      });
+      return `rotate(${rotateX}deg)`;
+    }
+    return "";
+  };
+
+  const getScaleX = (val) => {
+    if (val !== 1) {
+      const scaleX = interpolate(frame, [0, 200], [1, 2], {
+        extrapolateRight: "clamp",
+        extrapolateLeft: "clamp",
+      });
+      return `scaleX(${scaleX})`;
+    }
+    return "";
+  };
+
+  const getScaleY = (val) => {
+    if (val !== 1) {
+      const scaleY = interpolate(frame, [0, 200], [1, 2], {
+        extrapolateRight: "clamp",
+        extrapolateLeft: "clamp",
+      });
+      return `scaleX(${scaleY})`;
+    }
+    return "";
+  };
+
   return (
     <>
       <AbsoluteFill>
@@ -87,9 +159,15 @@ export const MyVideo = ({ jsonData }) => {
               style={{
                 botom: `${layer?.bottom}px`,
                 left: `${layer?.left}px`,
-                transform:
+                width: "fit-content",
+                height: "fit-content",
+                transform: `${
                   getTranslateX(layer.translateX) +
-                  getTranslateY(layer.transalteY),
+                  getTranslateY(layer.transalteY)
+                } 
+                  ${getRotate(layer.rotate)} ${getScaleX(
+                  layer.scaleX
+                )}  ${getScaleY(layer.scaleY)}`,
               }}
             >
               <Img width={200} src={dummyMap[layer?.object]} />
