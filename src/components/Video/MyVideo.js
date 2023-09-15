@@ -3,6 +3,7 @@ import {
   AbsoluteFill,
   Img,
   Sequence,
+  interpolate,
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
@@ -238,41 +239,48 @@ export const MyVideo = () => {
     durationInFrames: 500,
   };
 
+  const sample = [
+    {
+      version: "4.0",
+      name: "vertical_product_1",
+      layerNumber: 1,
+      opacity: 1,
+      rotate: 0,
+      id: "mkSJlaLnONqDJCfzcocfg",
+      type: "image",
+      layerType: "product",
+      top: 200,
+      left:10,
+      scaleX: 1.0975609756097562,
+      scaleY: 1.0975609756097562,
+      hidden: false,
+      url: train,
+      orientation: "vertical",
+    }
+  ]
+
   const frame = useCurrentFrame();
   const { durationInFrames, fps } = useVideoConfig();
+	const translateX = interpolate(
+		frame,
+		[0, 200],
+		[0, 1000]
+	);
   return (
     <>
-      {testData?.scenes?.map((scene) => (
-        <Sequence
-          from={scene?.startFrame}
-          durationInFrames={scene?.durationInFrames}
-        >
-          {scene?.layers?.map((layer) => {
-            console.log(layer?.top, layer?.left);
+    <AbsoluteFill style={{backgroundColor: 'red'}}>
+
+          {sample?.map((layer) => {
             return (
               <AbsoluteFill
-                style={{ top: `${100}px`, left: `${layer?.left}px` }}
+                style={{ top: `${layer?.top}px`, left: `${layer?.left}px`,
+                transform: `translateX(${translateX}px)`  }}
               >
                 <Img width={200} src={layer?.url} />
               </AbsoluteFill>
             );
           })}
-        </Sequence>
-      ))}
-      {/* <Sequence durationInFrames={10}>
-		<AbsoluteFill>
-			<div>Intro</div>
-		</AbsoluteFill>
-        </Sequence>
-        <Sequence from={10} durationInFrames={50}>
-		<AbsoluteFill style={{top:'50%',left: '10',
-				transform: `translateX(${frame/2 * fps}px)`}}>
-			<Img height={50} width={50} src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1RbHY4ftpASj55w-7r6IfsS65yVNtjKZmKZubWu9eqg&s'/>
-		</AbsoluteFill>
-        </Sequence>
-        <Sequence durationInFrames={20} from={60}>
-          <div>outro</div>
-        </Sequence> */}
+    </AbsoluteFill>
     </>
   );
 };
