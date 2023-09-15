@@ -63,7 +63,7 @@ const Header = () => {
         <Player
           component={MyVideo}
           durationInFrames={500}
-          compositionWidth={1300}
+          compositionWidth={800}
           compositionHeight={500}
           fps={30}
           autoPlay
