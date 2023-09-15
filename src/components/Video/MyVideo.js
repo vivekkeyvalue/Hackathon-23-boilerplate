@@ -129,7 +129,7 @@ export const MyVideo = ({ jsonData }) => {
   };
 
   const getScaleX = (val) => {
-    if (val !== 1) {
+    if (val && val !== 1) {
       const scaleX = interpolate(frame, [0, 200], [1, 2], {
         extrapolateRight: "clamp",
         extrapolateLeft: "clamp",
@@ -140,7 +140,7 @@ export const MyVideo = ({ jsonData }) => {
   };
 
   const getScaleY = (val) => {
-    if (val !== 1) {
+    if (val && val !== 1) {
       const scaleY = interpolate(frame, [0, 200], [1, 2], {
         extrapolateRight: "clamp",
         extrapolateLeft: "clamp",
