@@ -2,8 +2,10 @@ import React from "react";
 import { AbsoluteFill, Img, interpolate, useCurrentFrame } from "remotion";
 import train from "./train.png";
 import pole from "./pole.png";
+import { dummyMap } from "../../constants";
 
-export const MyVideo = () => {
+export const MyVideo = ({ jsonData }) => {
+  console.log(123, jsonData);
   const scene = {
     fps: 30,
     durationInFrames: 30,
@@ -63,15 +65,15 @@ export const MyVideo = () => {
   const frame = useCurrentFrame();
 
   const getTranslateX = (val) => {
-    if (val) {
-      const translateX = interpolate(frame, [0, 200], [0, 1000]);
+    if (val?.length) {
+      const translateX = interpolate(frame, [val[0], val[1]], [0, 1000]);
       return `translateX(${translateX}px)`;
     } else return "";
   };
 
   const getTranslateY = (val) => {
-    if (val) {
-      const translateY = interpolate(frame, [0, 200], [0, 1000]);
+    if (val?.length) {
+      const translateY = interpolate(frame, [val[0], val[1]], [0, 1000]);
       return `translateY(${translateY}px)`;
     } else return "";
   };
@@ -79,18 +81,18 @@ export const MyVideo = () => {
   return (
     <>
       <AbsoluteFill>
-        {scene.images?.map((layer) => {
+        {jsonData?.map((layer) => {
           return (
             <AbsoluteFill
               style={{
-                top: `${layer?.top}px`,
+                botom: `${layer?.bottom}px`,
                 left: `${layer?.left}px`,
                 transform:
                   getTranslateX(layer.translateX) +
                   getTranslateY(layer.transalteY),
               }}
             >
-              <Img width={200} src={layer?.url} />
+              <Img width={200} src={dummyMap[layer?.object]} />
             </AbsoluteFill>
           );
         })}
