@@ -2,20 +2,11 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 import "./Header.scss";
-import images from "../../constants/images";
-import { expertiseTechImages } from "../../constants";
-import AppWrap from "../../wrapper/AppWrap";
 
-const scaleVariants = {
-  whileInView: {
-    scale: [0, 1],
-    opacity: [0, 1],
-    transition: {
-      duration: 1,
-      ease: "easeInOut",
-    },
-  },
-};
+import AppWrap from "../../wrapper/AppWrap";
+import { MyVideo } from "../../components/Video/MyVideo";
+import { Player } from "@remotion/player";
+
 const Header = () => {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -42,6 +33,25 @@ const Header = () => {
           </div>
         </div>
       </motion.div>
+      <div
+        style={{
+          width: "800px",
+          height: "500px",
+        }}
+      >
+        <Player
+          component={MyVideo}
+          durationInFrames={500}
+          compositionWidth={800}
+          compositionHeight={500}
+          fps={30}
+          autoPlay
+          initiallyShowControls
+          alwaysShowControls
+          clickToPlay
+          controls
+        />
+      </div>
       <motion.div
         whileInView={{ opacity: [0, 1] }}
         transition={{ duration: 0.5, delayChildren: 0.5 }}
