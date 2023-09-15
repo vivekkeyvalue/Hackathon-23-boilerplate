@@ -41,7 +41,7 @@ const Header = () => {
       >
         <Player
           component={MyVideo}
-          durationInFrames={500}
+          durationInFrames={400}
           compositionWidth={800}
           compositionHeight={500}
           fps={30}
